@@ -1,0 +1,1703 @@
+
+:root {
+  --pink: #d96b91;
+  --pink-dark: #b94e78;
+  --pink-light: #f8dce6;
+  --pink-pale: #fff0f5;
+  --cream: #fffaf3;
+  --ink: #704858;
+  --muted: #aa8290;
+  --line: #f0dce2;
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "DM Sans", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 15% 15%, #ffe0eb 0, transparent 38%),
+    radial-gradient(ellipse at 90% 85%, #f9d8e4 0, transparent 35%),
+    #fff5f7;
+  font-family: var(--sans);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--pink-dark);
+  outline-offset: 4px;
+}
+
+.ambient {
+  position: fixed;
+  width: 18rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #f5b9d0;
+  opacity: .17;
+  filter: blur(65px);
+  pointer-events: none;
+}
+
+.ambient-one {
+  top: -8rem;
+  left: -6rem;
+}
+
+.ambient-two {
+  right: -7rem;
+  bottom: -9rem;
+  background: #d99bb7;
+}
+
+.petal-field {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  top: -2rem;
+  color: #e8a2bd;
+  opacity: .52;
+  animation: falling linear infinite;
+}
+
+@keyframes falling {
+  to {
+    transform: translate3d(50px, 110vh, 0) rotate(330deg);
+  }
+}
+
+/* KERANGKA BUKU */
+
+.book-shell {
+  position: relative;
+  width: min(100%, 70rem);
+  height: min(88dvh, 47rem);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--cream);
+  border: 1px solid #e8cbd5;
+  border-radius: 1.1rem;
+  box-shadow:
+    0 2rem 5rem #a65b7722,
+    0 0 0 7px #ffffff85,
+    0 0 0 8px #ebcbd7;
+}
+
+.book-shell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.3rem;
+  width: 1px;
+  background: #f3e5e7;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.book-topline,
+.book-bottomline {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem 1.7rem;
+  color: #ae8795;
+  font-size: .63rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.book-topline {
+  border-bottom: 1px solid #f0e1e4;
+}
+
+.book-bottomline {
+  border-top: 1px solid #f0e1e4;
+  letter-spacing: .09em;
+  font-size: .56rem;
+}
+
+.brand {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+
+.brand i {
+  color: var(--pink);
+}
+
+.page-indicator {
+  font-weight: 700;
+}
+
+/* SISTEM HALAMAN */
+
+.page {
+  position: absolute;
+  inset: 2.7rem 0 2.45rem;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.4rem, 3.5vw, 2.8rem);
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, #fffaf3, #fffdf9 52%, #fff9f2);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: perspective(1400px) rotateY(-5deg) translateX(1.5rem);
+  transform-origin: left center;
+  transition:
+    opacity .35s ease,
+    transform .48s cubic-bezier(.2, .7, .2, 1),
+    visibility .35s;
+}
+
+.page.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: perspective(1400px) rotateY(0) translateX(0);
+  z-index: 2;
+}
+
+.page.leaving {
+  opacity: 0;
+  transform: perspective(1400px) rotateY(7deg) translateX(-1rem);
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #b47c91;
+  font-size: .59rem;
+  font-weight: 700;
+  letter-spacing: .19em;
+  line-height: 1.8;
+}
+
+h1, h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -.045em;
+  line-height: 1.13;
+}
+
+h1 em, h2 em {
+  color: var(--pink);
+  font-weight: 500;
+}
+
+.primary-button {
+  min-height: 2.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+  padding: .8rem 1.45rem;
+  border: 1px solid var(--pink);
+  border-radius: 3rem;
+  color: white;
+  background: var(--pink);
+  box-shadow: 0 .5rem 1.2rem #d96b9128;
+  font-size: .8rem;
+  font-weight: 600;
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  background: var(--pink-dark);
+  box-shadow: 0 .7rem 1.4rem #d96b9133;
+}
+
+.primary-button i {
+  font-size: .72rem;
+}
+
+.small-button {
+  min-height: 2.5rem;
+  padding: .65rem 1.2rem;
+}
+
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  border: 0;
+  background: transparent;
+  color: #aa7a8d;
+  font-size: .74rem;
+  transition: color .2s;
+}
+
+.text-button:hover {
+  color: var(--pink-dark);
+}
+
+.page-navigation {
+  margin-top: auto;
+  padding-top: .9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .7rem;
+  flex: 0 0 auto;
+}
+
+.page-number {
+  color: #bd9ba7;
+  font-size: .63rem;
+  letter-spacing: .1em;
+}
+
+/* SAMPUL */
+
+.cover-page {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at center, #fffaf7 15%, transparent 65%),
+    #fff2f5;
+}
+
+.cover-page::before {
+  content: "";
+  position: absolute;
+  inset: .8rem;
+  border: 1px solid #e9c6d3;
+  border-radius: .6rem;
+  pointer-events: none;
+}
+
+.cover-content {
+  width: min(100%, 31rem);
+  position: relative;
+  z-index: 1;
+}
+
+.cover-content h1 {
+  margin: .7rem 0 1rem;
+  font-size: clamp(2.5rem, 5.4vw, 4.6rem);
+}
+
+.small-script {
+  margin-top: .8rem;
+  color: #b17c90;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
+.tulip-art {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: .1rem;
+  margin: .7rem 0 .4rem;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+.tulip-art span:nth-child(2) {
+  transform: translateY(-.7rem) rotate(7deg);
+}
+
+.tulip-art span:first-child {
+  transform: rotate(-12deg);
+}
+
+.tulip-art span:last-child {
+  transform: rotate(12deg);
+}
+
+.cover-description {
+  max-width: 23rem;
+  margin: 0 auto 1.6rem;
+  color: #997887;
+  font-size: .84rem;
+  line-height: 1.9;
+}
+
+.cover-footer {
+  margin-top: 1.8rem;
+  color: #ba91a0;
+  font-family: var(--serif);
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.cover-decor {
+  position: absolute;
+  color: #e6adc1;
+  opacity: .65;
+  font-size: clamp(3rem, 8vw, 7rem);
+}
+
+.decor-left {
+  top: 12%;
+  left: 8%;
+  transform: rotate(-15deg);
+}
+
+.decor-right {
+  right: 8%;
+  bottom: 13%;
+  transform: rotate(14deg);
+}
+
+.cover-stamp {
+  position: absolute;
+  right: 7%;
+  top: 8%;
+  width: 3.6rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  border: 1px solid #dfa4b9;
+  border-radius: 50%;
+  color: #c47b97;
+  font-size: .52rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  line-height: 1.7;
+  transform: rotate(12deg);
+}
+
+/* SURAT PANJANG */
+
+.letter-page {
+  background:
+    linear-gradient(90deg, #f8e9e9 0, #fffaf4 2%, #fffaf4 98%, #f8e9e9 100%);
+}
+
+.paper-heading {
+  flex: 0 0 auto;
+  margin-bottom: 1.3rem;
+}
+
+.paper-heading h2 {
+  margin-top: .5rem;
+  font-size: clamp(1.65rem, 3.5vw, 2.6rem);
+}
+
+.letter-layout {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, .78fr) minmax(0, 1.5fr);
+  gap: clamp(1.2rem, 3vw, 2.6rem);
+  align-items: stretch;
+}
+
+.portrait-frame {
+  position: relative;
+  align-self: start;
+  padding: .55rem .55rem 2.5rem;
+  background: #fff;
+  box-shadow: 0 .6rem 1.5rem #8d52641c;
+  transform: rotate(-2deg);
+}
+
+.portrait-frame img {
+  width: 100%;
+  height: clamp(12rem, 34vh, 22rem);
+  display: block;
+  object-fit: cover;
+  background: #f7dce5;
+}
+
+.portrait-caption {
+  position: absolute;
+  right: 0;
+  bottom: .75rem;
+  left: 0;
+  text-align: center;
+  color: #a57b8c;
+  font-family: var(--serif);
+  font-size: .85rem;
+  font-style: italic;
+}
+
+.portrait-flower {
+  position: absolute;
+  right: -.8rem;
+  top: -.9rem;
+  font-size: 1.9rem;
+}
+
+.letter-copy {
+  min-height: 0;
+  overflow-y: auto;
+  padding: .1rem .6rem .7rem 0;
+  color: #806776;
+  font-size: clamp(.73rem, 1.1vw, .85rem);
+  line-height: 1.85;
+  scrollbar-width: thin;
+  scrollbar-color: #e9c3d1 transparent;
+}
+
+.letter-copy p {
+  margin-bottom: .8rem;
+}
+
+.letter-copy .dear {
+  color: #b96e8c;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.letter-sign {
+  color: #b96e8c;
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.letter-sign span {
+  color: var(--pink);
+}
+
+/* HADIAH */
+
+.gifts-page {
+  background:
+    radial-gradient(ellipse at 50% 0, #ffedf2, transparent 50%),
+    #fffaf4;
+}
+
+.gifts-heading {
+  flex: 0 0 auto;
+  text-align: center;
+  margin-bottom: 1.7rem;
+}
+
+.gifts-heading h2 {
+  margin: .6rem 0 .6rem;
+  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+}
+
+.gifts-heading > p {
+  color: #a08491;
+  font-size: .78rem;
+  line-height: 1.7;
+}
+
+.gift-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .9rem;
+}
+
+.gift-card {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  padding: 1rem .65rem;
+  border: 1px solid #efd6df;
+  border-radius: .8rem;
+  color: var(--ink);
+  background: linear-gradient(155deg, #fff 0%, #fff2f6 100%);
+  box-shadow: 0 .6rem 1.5rem #b9688510;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+
+.gift-card:hover {
+  transform: translateY(-5px);
+  border-color: #dda3b9;
+  box-shadow: 0 1rem 2rem #b968851b;
+}
+
+.gift-number {
+  position: absolute;
+  top: .75rem;
+  left: .8rem;
+  color: #c6a1b0;
+  font-size: .6rem;
+  letter-spacing: .1em;
+}
+
+.gift-icon {
+  width: clamp(3rem, 5vw, 4.5rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid #f0cfdb;
+  border-radius: 50%;
+  color: var(--pink);
+  background: #fff8fa;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  transition: transform .3s;
+}
+
+.gift-card:hover .gift-icon {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.gift-card strong {
+  font-family: var(--serif);
+  font-size: clamp(.8rem, 1.3vw, 1.05rem);
+  font-weight: 500;
+  text-align: center;
+}
+
+.gift-subtitle {
+  color: #aa8695;
+  font-size: .66rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.gift-open {
+  margin-top: .4rem;
+  color: #c0708e;
+  font-size: .63rem;
+  font-weight: 600;
+}
+
+.tiny-note {
+  color: #b18a9a;
+  font-family: var(--serif);
+  font-size: .75rem;
+  font-style: italic;
+}
+
+/* MODAL / POP-UP */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: #54303e80;
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s, visibility .25s;
+}
+
+.modal.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-card {
+  position: relative;
+  width: min(100%, 34rem);
+  max-height: 84dvh;
+  overflow: auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid #efd5df;
+  border-radius: 1rem;
+  background:
+    radial-gradient(ellipse at top right, #ffe7ef, transparent 45%),
+    var(--cream);
+  box-shadow: 0 2rem 5rem #32162245;
+  text-align: center;
+  transform: translateY(1rem) scale(.98);
+  transition: transform .3s;
+  scrollbar-width: thin;
+  scrollbar-color: #e9c3d1 transparent;
+}
+
+.modal.open .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: sticky;
+  z-index: 2;
+  float: right;
+  top: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid #efd7e0;
+  border-radius: 50%;
+  color: #a67a8c;
+  background: #fff9fa;
+  font-size: .85rem;
+}
+
+.modal-card h2 {
+  clear: both;
+  margin: .65rem 0 1rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+.modal-flower {
+  display: block;
+  margin: .1rem auto .6rem;
+  font-size: 2.3rem;
+}
+
+.personal-note {
+  padding: 1rem 1.2rem;
+  border: 1px solid #efdce1;
+  border-radius: .7rem;
+  background: #fffaf7c9;
+  color: #846779;
+  font-size: .85rem;
+  line-height: 1.9;
+  text-align: left;
+}
+
+.personal-note p {
+  margin-bottom: .8rem;
+}
+
+.personal-note p:last-child {
+  margin-bottom: 0;
+}
+
+.note-sign {
+  color: #b66f8b;
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+/* DUA ROLL PHOTO BOOTH */
+
+.photos-modal-card {
+  width: min(100%, 42rem);
+}
+
+.modal-intro {
+  margin-bottom: 1.2rem;
+  color: #a08491;
+  font-size: .78rem;
+}
+
+.photo-rolls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.photo-roll {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding: .75rem .75rem .9rem;
+  border: 1px solid #eed8df;
+  background: #fff;
+  box-shadow: 0 .7rem 1.5rem #9f627514;
+}
+
+.photo-roll:nth-child(1) {
+  transform: rotate(-1deg);
+}
+
+.photo-roll:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.roll-label {
+  padding-bottom: .5rem;
+  border-bottom: 1px dashed #e6c8d3;
+  color: #b18a99;
+  font-size: .55rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+
+.photo-roll img {
+  width: 100%;
+  height: clamp(5.5rem, 15vh, 9rem);
+  display: block;
+  object-fit: cover;
+  background: #f7dce5;
+}
+
+.roll-caption {
+  padding-top: .3rem;
+  color: #b17c90;
+  font-family: var(--serif);
+  font-size: .72rem;
+  font-style: italic;
+}
+
+/* PEMUTAR MUSIK */
+
+.music-modal-card {
+  width: min(100%, 27rem);
+}
+
+.record-art {
+  position: relative;
+  width: clamp(7rem, 22vw, 10rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  margin: .5rem auto 1.2rem;
+  border: 5px solid #f5dce6;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle,
+    #6f4558 0,
+    #6f4558 2px,
+    #87566b 3px,
+    #87566b 5px
+  );
+  box-shadow: 0 .8rem 2rem #a257761f;
+}
+
+.record-center {
+  width: 35%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 3px solid #fbe3eb;
+  border-radius: 50%;
+  color: #fff;
+  background: #d982a3;
+  font-size: 1.3rem;
+}
+
+.record-art.playing {
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.music-modal-card h2 {
+  margin-bottom: .55rem;
+}
+
+.music-name {
+  color: #a15e7b;
+  font-weight: 700;
+  font-size: .9rem;
+}
+
+.music-subtitle {
+  margin-top: .35rem;
+  color: #ac8b99;
+  font-size: .72rem;
+}
+
+.music-controls {
+  display: flex;
+  justify-content: center;
+  margin: 1.2rem 0;
+}
+
+.play-button {
+  width: 3.2rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: white;
+  background: var(--pink);
+  box-shadow: 0 .6rem 1.4rem #d96b9135;
+  transition: transform .2s;
+}
+
+.play-button:hover {
+  transform: scale(1.07);
+}
+
+.music-progress {
+  display: grid;
+  grid-template-columns: 2.3rem minmax(0, 1fr) 2.3rem;
+  gap: .6rem;
+  align-items: center;
+  color: #a78494;
+  font-size: .62rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.music-progress input {
+  width: 100%;
+  accent-color: var(--pink);
+  cursor: pointer;
+}
+
+.music-hint {
+  margin: 1.2rem 0 1rem;
+  color: #b18a9a;
+  font-family: var(--serif);
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.next-button {
+  min-width: 8rem;
+}
+
+/* HALAMAN AKHIR */
+
+.final-page {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at center, #fffaf8 5%, #fff2f6 65%, #ffe9f0);
+}
+
+.final-page h2 {
+  margin: .8rem 0 1rem;
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+}
+
+.final-page > p {
+  color: #997889;
+  font-size: .85rem;
+  line-height: 1.9;
+}
+
+.final-flower-bouquet {
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  margin-bottom: 1.3rem;
+  padding: 0 .5rem;
+}
+
+.tulip {
+  display: inline-block;
+  font-size: clamp(2.3rem, 5.5vw, 4rem);
+  filter: drop-shadow(0 .5rem .5rem #c57b9820);
+  animation: bloom 2.8s ease-in-out infinite alternate;
+}
+
+.tulip-one { transform: rotate(-18deg) translateY(.5rem); }
+.tulip-two { transform: rotate(-8deg); animation-delay: .2s; }
+.tulip-three { transform: translateY(-.5rem); animation-delay: .4s; }
+.tulip-four { transform: rotate(9deg); animation-delay: .6s; }
+.tulip-five { transform: rotate(18deg) translateY(.5rem); animation-delay: .8s; }
+
+@keyframes bloom {
+  from { translate: 0 0; }
+  to { translate: 0 -.4rem; }
+}
+
+.final-sparkle {
+  position: absolute;
+  color: #d995b0;
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+.sparkle-one { top: 17%; left: 18%; font-size: 2rem; }
+.sparkle-two { top: 24%; right: 18%; font-size: 1.6rem; animation-delay: .5s; }
+.sparkle-three { right: 25%; bottom: 24%; font-size: 1.8rem; animation-delay: .8s; }
+
+@keyframes twinkle {
+  from { opacity: .35; transform: scale(.8) rotate(0); }
+  to { opacity: 1; transform: scale(1.15) rotate(15deg); }
+}
+
+.final-divider {
+  width: 10rem;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin: 1.1rem 0;
+  color: #d48ca7;
+}
+
+.final-divider::before,
+.final-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: #e9bdce;
+}
+
+.final-signature {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.final-navigation {
+  position: absolute;
+  right: clamp(1.4rem, 3.5vw, 2.8rem);
+  bottom: 1rem;
+  left: clamp(1.4rem, 3.5vw, 2.8rem);
+}
+
+/* NOTIFIKASI */
+
+.toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  max-width: calc(100vw - 2rem);
+  padding: .8rem 1.1rem;
+  border: 1px solid #efcfda;
+  border-radius: 2rem;
+  color: #87536b;
+  background: #fff9fb;
+  box-shadow: 0 .5rem 2rem #7e45551c;
+  font-size: .75rem;
+  opacity: 0;
+  transform: translateY(.6rem);
+  pointer-events: none;
+  transition: .25s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TABLET DAN HP */
+
+@media (max-width: 700px) {
+  body {
+    padding: .65rem;
+  }
+
+  .book-shell {
+    width: 100%;
+    height: min(90dvh, 52rem);
+    border-radius: .8rem;
+  }
+
+  .book-shell::before {
+    left: .6rem;
+  }
+
+  .book-topline,
+  .book-bottomline {
+    padding: .75rem 1rem;
+    font-size: .53rem;
+    letter-spacing: .08em;
+  }
+
+  .page {
+    inset: 2.45rem 0 2.25rem;
+    padding: 1.35rem 1.2rem;
+  }
+
+  .cover-stamp {
+    width: 2.8rem;
+    font-size: .43rem;
+  }
+
+  .decor-left { left: 3%; }
+  .decor-right { right: 3%; }
+
+  .paper-heading {
+    margin-bottom: 1rem;
+  }
+
+  .letter-layout {
+    grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+    gap: .9rem;
+  }
+
+  .portrait-frame {
+    padding: .35rem .35rem 2rem;
+  }
+
+  .portrait-frame img {
+    height: clamp(10rem, 28vh, 17rem);
+  }
+
+  .portrait-caption {
+    bottom: .5rem;
+    font-size: .68rem;
+  }
+
+  .letter-copy {
+    font-size: .72rem;
+    line-height: 1.72;
+  }
+
+  .letter-copy p {
+    margin-bottom: .65rem;
+  }
+
+  .gifts-heading {
+    margin-bottom: 1.2rem;
+  }
+
+  .gift-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: .65rem;
+  }
+
+  .gift-card {
+    gap: .45rem;
+    padding: .7rem .45rem;
+  }
+
+  .gift-icon {
+    width: 2.9rem;
+    font-size: 1.3rem;
+  }
+
+  .gift-card strong {
+    font-size: .85rem;
+  }
+
+  .gift-subtitle,
+  .gift-open {
+    font-size: .61rem;
+  }
+
+  .final-sparkle.sparkle-one { left: 8%; }
+  .final-sparkle.sparkle-two { right: 8%; }
+
+  .final-navigation {
+    right: 1.2rem;
+    left: 1.2rem;
+  }
+}
+
+@media (max-width: 390px) {
+  body {
+    padding: .4rem;
+  }
+
+  .book-shell {
+    height: 94dvh;
+  }
+
+  .page {
+    padding: 1rem .85rem;
+  }
+
+  .brand {
+    font-size: .49rem;
+  }
+
+  .page-indicator {
+    font-size: .49rem;
+  }
+
+  .book-bottomline {
+    font-size: .46rem;
+  }
+
+  .cover-content h1 {
+    font-size: 2.55rem;
+  }
+
+  .cover-description {
+    font-size: .76rem;
+  }
+
+  .letter-layout {
+    grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr);
+    gap: .65rem;
+  }
+
+  .letter-copy {
+    font-size: .66rem;
+    line-height: 1.65;
+  }
+
+  .paper-heading h2 {
+    font-size: 1.65rem;
+  }
+
+  .page-navigation {
+    gap: .35rem;
+  }
+
+  .page-number {
+    font-size: .55rem;
+  }
+
+  .text-button {
+    font-size: .65rem;
+  }
+
+  .small-button {
+    padding: .6rem .85rem;
+    font-size: .7rem;
+  }
+
+  .photo-rolls {
+    gap: .6rem;
+  }
+
+  .photo-roll {
+    padding: .45rem;
+  }
+
+  .photo-roll img {
+    height: 5.5rem;
+  }
+}
+
+@media (max-height: 650px) and (min-width: 701px) {
+  .book-shell {
+    height: 94dvh;
+  }
+
+  .page {
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+
+  .paper-heading {
+    margin-bottom: .7rem;
+  }
+
+  .portrait-frame img {
+    height: 34vh;
+  }
+
+  .gifts-heading {
+    margin-bottom: .8rem;
+  }
+
+  .gift-card {
+    gap: .4rem;
+  }
+
+  .gift-icon {
+    width: 3rem;
+  }
+
+  .final-flower-bouquet {
+    margin-bottom: .5rem;
+  }
+
+  .tulip {
+    font-size: 2.5rem;
+  }
+
+  .final-page h2 {
+    font-size: 2.8rem;
+    margin: .4rem 0;
+  }
+
+  .final-page > p {
+    font-size: .75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* =========================================
+   BACKGROUND LUAR BUKU — PINK TULIP GARDEN
+========================================= */
+
+body {
+  background:
+    radial-gradient(ellipse at 10% 15%, #ffd0e1 0%, transparent 28%),
+    radial-gradient(ellipse at 88% 12%, #ffe1eb 0%, transparent 30%),
+    radial-gradient(ellipse at 8% 85%, #f8c4d9 0%, transparent 29%),
+    radial-gradient(ellipse at 90% 88%, #fbd5e4 0%, transparent 30%),
+    linear-gradient(135deg, #fff0f6, #ffe4ef 45%, #fff5f8);
+}
+
+.outside-decor {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Bunga tulip di empat sudut */
+
+.decor-bloom {
+  position: absolute;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: .1rem;
+  opacity: .82;
+  filter: drop-shadow(0 .5rem .6rem #c15d8820);
+  animation: tulip-float 4s ease-in-out infinite alternate;
+}
+
+.decor-bloom span {
+  display: inline-block;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+}
+
+.decor-bloom span:nth-child(1) {
+  transform: rotate(-18deg) translateY(.5rem);
+}
+
+.decor-bloom span:nth-child(2) {
+  transform: translateY(-.25rem);
+}
+
+.decor-bloom span:nth-child(3) {
+  transform: rotate(18deg) translateY(.4rem);
+}
+
+.bloom-top-left {
+  top: 2%;
+  left: 2%;
+  transform: rotate(-12deg);
+}
+
+.bloom-top-right {
+  top: 3%;
+  right: 2%;
+  transform: rotate(12deg);
+  animation-delay: .8s;
+}
+
+.bloom-bottom-left {
+  bottom: 2%;
+  left: 2%;
+  transform: rotate(10deg);
+  animation-delay: 1.2s;
+}
+
+.bloom-bottom-right {
+  right: 2%;
+  bottom: 2%;
+  transform: rotate(-10deg);
+  animation-delay: .5s;
+}
+
+@keyframes tulip-float {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0 -.65rem;
+  }
+}
+
+/* Hiasan kecil yang mengambang */
+
+.floating-heart {
+  position: absolute;
+  color: #dc7da2;
+  font-family: Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 2.5rem);
+  opacity: .72;
+  animation: heart-drift 5s ease-in-out infinite alternate;
+}
+
+.heart-one {
+  top: 28%;
+  left: 7%;
+}
+
+.heart-two {
+  top: 40%;
+  right: 7%;
+  font-size: 1.2rem;
+  animation-delay: .8s;
+}
+
+.heart-three {
+  bottom: 25%;
+  left: 13%;
+  animation-delay: 1.5s;
+}
+
+.heart-four {
+  top: 18%;
+  right: 18%;
+  color: #bd85b0;
+  animation-delay: .5s;
+}
+
+.heart-five {
+  bottom: 16%;
+  right: 13%;
+  color: #c783a1;
+  animation-delay: 1s;
+}
+
+@keyframes heart-drift {
+  from {
+    transform: translateY(0) rotate(-8deg) scale(.9);
+  }
+
+  to {
+    transform: translateY(-1.1rem) rotate(10deg) scale(1.1);
+  }
+}
+
+/* Pita dekoratif di pinggir layar */
+
+.ribbon {
+  position: absolute;
+  width: clamp(5rem, 10vw, 9rem);
+  height: clamp(5rem, 10vw, 9rem);
+  border: 2px solid #e7a0ba;
+  border-radius: 50% 50% 45% 45%;
+  opacity: .45;
+}
+
+.ribbon::before,
+.ribbon::after {
+  content: "";
+  position: absolute;
+  width: 48%;
+  height: 48%;
+  border: 2px solid #e7a0ba;
+  border-radius: 70% 20% 70% 20%;
+}
+
+.ribbon::before {
+  top: -10%;
+  left: -20%;
+  transform: rotate(-25deg);
+}
+
+.ribbon::after {
+  top: -10%;
+  right: -20%;
+  transform: rotate(25deg) scaleX(-1);
+}
+
+.ribbon-left {
+  top: 49%;
+  left: -3rem;
+  transform: rotate(-25deg);
+}
+
+.ribbon-right {
+  top: 47%;
+  right: -3rem;
+  transform: rotate(25deg);
+}
+
+/* Pastikan buku tetap di depan dekorasi */
+
+.book-shell {
+  z-index: 2;
+}
+
+/* Pada layar kecil, hiasan tidak mengganggu buku */
+
+@media (max-width: 700px) {
+  .decor-bloom span {
+    font-size: 1.7rem;
+  }
+
+  .bloom-top-left {
+    top: 0;
+    left: -1.1rem;
+  }
+
+  .bloom-top-right {
+    top: 0;
+    right: -1.1rem;
+  }
+
+  .bloom-bottom-left {
+    bottom: 0;
+    left: -1.1rem;
+  }
+
+  .bloom-bottom-right {
+    right: -1.1rem;
+    bottom: 0;
+  }
+
+  .floating-heart {
+    font-size: 1.2rem;
+  }
+
+  .ribbon {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+/* =====================================================
+   CUTE PINK FANTASY — TAMBAHAN VISUAL
+   Tidak menghapus style website yang sudah ada
+===================================================== */
+
+:root {
+    --fantasy-pink: #ff8fba;
+    --fantasy-light: #fff0f7;
+    --fantasy-dark: #b94e7c;
+    --fantasy-gold: #f4c96b;
+}
+
+/* Lapisan dekorasi tambahan di belakang buku */
+.outside-decor {
+    pointer-events: none;
+}
+
+/* Bunga tulip lebih hidup */
+.decor-bloom {
+    transform-origin: bottom center;
+    will-change: transform;
+}
+
+.decor-bloom span {
+    filter: drop-shadow(0 5px 8px #d36a9220);
+    animation: tulip-sway 3.5s ease-in-out infinite alternate;
+}
+
+.decor-bloom span:nth-child(2) {
+    animation-delay: .5s;
+}
+
+.decor-bloom span:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes tulip-sway {
+    from {
+        rotate: -5deg;
+    }
+    to {
+        rotate: 5deg;
+    }
+}
+
+/* Kelopak bunga tambahan */
+.fantasy-petal {
+    position: fixed;
+    top: -8vh;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    color: #f28db5;
+    opacity: 0;
+    font-size: 1.1rem;
+    animation: fantasy-petal-fall linear forwards;
+    filter: drop-shadow(0 2px 3px #e98db355);
+}
+
+@keyframes fantasy-petal-fall {
+    0% {
+        transform: translate3d(0, -5vh, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: .8;
+    }
+    85% {
+        opacity: .75;
+    }
+    100% {
+        transform: translate3d(var(--drift, 50px), 115vh, 0)
+            rotate(var(--spin, 540deg));
+        opacity: 0;
+    }
+}
+
+/* Hadiah interaktif */
+[data-modal] {
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        filter .3s ease;
+}
+
+[data-modal]:hover {
+    transform: translateY(-5px) scale(1.025);
+    filter: saturate(1.08);
+}
+
+[data-modal]:active {
+    transform: scale(.96);
+}
+
+/* Surat rahasia: tempelkan class secret-letter
+   pada pembungkus teks surat yang sudah ada */
+.secret-letter {
+    position: relative;
+    isolation: isolate;
+    animation: letter-reveal .75s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.secret-letter::before {
+    content: "♡";
+    position: absolute;
+    top: -.7rem;
+    right: .4rem;
+    z-index: -1;
+    color: #f1a1c1;
+    font-size: 2rem;
+    transform: rotate(15deg);
+}
+
+@keyframes letter-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Scrapbook foto */
+.photo-roll img {
+    border: 5px solid #fffafc;
+    border-radius: 4px;
+    box-shadow: 0 7px 18px #b84d7620;
+    transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.photo-roll img:nth-child(odd) {
+    transform: rotate(-2deg);
+}
+
+.photo-roll img:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.photo-roll img:hover {
+    position: relative;
+    z-index: 3;
+    transform: rotate(0) scale(1.06);
+    box-shadow: 0 12px 25px #b84d7640;
+}
+
+/* Animasi pemutar musik */
+#recordArt {
+    transform-origin: center;
+}
+
+#recordArt.is-playing {
+    animation: record-spin 5s linear infinite;
+}
+
+@keyframes record-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Equalizer musik */
+.music-equalizer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 24px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.music-equalizer span {
+    width: 3px;
+    height: 5px;
+    border-radius: 5px;
+    background: #e77fa8;
+}
+
+.music-equalizer.is-playing span {
+    animation: equalizer-bounce .55s ease-in-out infinite alternate;
+}
+
+.music-equalizer span:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.music-equalizer span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+.music-equalizer span:nth-child(4) {
+    animation-delay: .1s;
+}
+
+@keyframes equalizer-bounce {
+    from { height: 4px; }
+    to { height: 22px; }
+}
+
+/* Lapisan konfeti */
+#confettiLayer {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.confetti-piece {
+    position: absolute;
+    top: -15px;
+    width: 8px;
+    height: 13px;
+    border-radius: 2px;
+    animation: confetti-fall var(--fall-time, 3s) ease-in forwards;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translate3d(0, -5vh, 0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(var(--confetti-drift, 30px), 110vh, 0)
+            rotate(720deg);
+        opacity: .1;
+    }
+}
+
+/* Menghormati pengaturan pengurangan animasi */
+@media (prefers-reduced-motion: reduce) {
+    .decor-bloom span,
+    .fantasy-petal,
+    .secret-letter,
+    #recordArt.is-playing,
+    .music-equalizer.is-playing span,
+    .confetti-piece {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
